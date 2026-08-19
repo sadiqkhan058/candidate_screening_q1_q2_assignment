@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Candidate Screening Voice Agent</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body{font-family:Arial,sans-serif;max-width:850px;margin:40px auto;padding:0 18px}
+    button{padding:10px 14px;margin:4px;cursor:pointer}
+    #log{border:1px solid #ddd;padding:14px;min-height:320px;border-radius:8px}
+    .agent{margin:10px 0}.candidate{margin:10px 0}
+    .agent b{color:#245}.candidate b{color:#542}
+    textarea{width:100%;min-height:70px;margin-top:12px}
+    .status{font-weight:bold}
+  </style>
+</head>
+<body>
+<h1>Candidate Screening Voice Agent</h1>
+<p>This is the Q1 demo interface connected to the Q2 knowledge base.</p>
+<button onclick="start()">Start screening</button>
+<button onclick="listen()">🎙 Speak</button>
+<div id="status" class="status">Not started</div>
+<div id="log"></div>
+<textarea id="text" placeholder="Type a response if speech recognition is unavailable"></textarea>
+<button onclick="send()">Send</button>
+
+<script>
+let sid=null;
+const log=document.getElementById("log");
+const status=document.getElementById("status");
+
+function add(who,text){
+  const d=document.createElement("div");
+  d.className=who;
+  d.innerHTML="<b>"+who.toUpperCase()+":</b> "+text;
+  log.appendChild(d);
+  log.scrollTop=log.scrollHeight;
+}
+
+function speak(text){
+  if("speechSynthesis" in window){
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(text);
+    u.rate=0.95;
+    speechSynthesis.speak(u);
+  }
+}
+
+async function start(){
+  const r=await fetch("/api/session",{method:"POST"});
+  const x=await r.json();
+  sid=x.session_id;
+  log.innerHTML="";
+  status.textContent="IN_PROGRESS";
+  add("agent",x.message);
+  speak(x.message);
+}
+
+async function send(){
+  if(!sid){alert("Start the screening first.");return;}
+  const box=document.getElementById("text");
+  const text=box.value.trim();
+  if(!text)return;
+  add("candidate",text);
+  box.value="";
+  const r=await fetch("/api/message",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({session_id:sid,text})
+  });
+  const x=await r.json();
+  add("agent",x.response);
+  status.textContent=x.status;
+  speak(x.response);
+}
+
+function listen(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){alert("Speech recognition is not available in this browser. Use the text box.");return;}
+  const rec=new SR();
+  rec.lang="en-IN";
+  rec.interimResults=false;
+  rec.onresult=e=>{
+    document.getElementById("text").value=e.results[0][0].transcript;
+    send();
+  };
+  rec.onerror=e=>alert("Speech recognition error: "+e.error);
+  rec.start();
+}
+</script>
+</body>
+</html>

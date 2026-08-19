@@ -1,0 +1,42 @@
+[
+  {
+    "record_id": "kb_candidate_001",
+    "title": "Candidate Screening \u2014 Business Rules v1.0",
+    "content": "# Candidate Screening \u2014 Business Rules v1.0\n## Purpose\nScreen applicants for a Junior Python/AI Engineer role before a human recruiter reviews the application.\n## Required qualifications\n1. Bachelor's degree in Computer Science, Information Technology, Engineering, Mathematics, Statistics, or a closely related field.\n2. At least 0 years of professional experience; internships and academic projects are accepted.\n3. Python fundamentals are required.\n4. Candidate must be legally authorized to work in the hiring location.\n5. Candidate must be able to work full-time.\n6. Candidate must be available to join within 60 days.\n## Preferred qualifications\n- Machine Learning or Deep Learning project experience.\n- REST API experience.\n- SQL fundamentals.\n- Git/GitHub experience.\n## Screening questions\n1. What degree did you complete and in which field?\n2. How much professional or internship experience do you have?\n3. How comfortable are you with Python?\n4. Do you have experience with machine learning or AI projects?\n5. Are you legally authorized to work in the hiring location?\n6. Can you work full-time?\n7. What is your notice period / earliest joining date?\n8. Do you have any questions for the recruiter?\n## Decision rules\n- RECOMMEND: all required qualifications are satisfied.\n- NEEDS_REVIEW: a required detail is unknown, conflicting, or cannot be verified.\n- NOT_QUALIFIED: a required qualification is explicitly not satisfied.\n- HUMAN_ESCALATION: candidate asks for a recruiter/human, reports a sensitive issue, or asks for a policy decision not covered by this document.\n## Safe-answer rule\nThe assistant must not invent hiring policies, salary, interview dates, benefits, visa decisions, or company-specific information not present in the knowledge base.\n## Privacy\nDo not collect unnecessary sensitive personal information. Do not ask for passwords, financial account details, government ID numbers, health information, or other unnecessary sensitive data.\n## Objection handling\n- \"Why do you need this information?\" Explain that the questions are used only for preliminary role qualification and that a recruiter can handle further concerns.\n- \"Can you guarantee I will get an interview?\" No. Explain that the bot only performs preliminary screening and a human recruiter makes the final decision.\n- \"What is the salary?\" If salary information is not in the knowledge base, say it is not available in the current screening information and offer human escalation.",
+    "category": "policy",
+    "source": "candidate_screening_policy.md",
+    "version": "1.0",
+    "pii": false,
+    "chunk_index": 0
+  },
+  {
+    "record_id": "kb_candidate_002",
+    "title": "Candidate Screening FAQ",
+    "content": "# Candidate Screening FAQ\n### Why are you asking these questions?\nThey are used for preliminary qualification for the Junior Python/AI Engineer role.\n### Does an internship count as experience?\nYes. Internships and academic projects are accepted for the experience question.\n### Is machine learning mandatory?\nNo. Python is required. Machine learning/deep learning experience is preferred.\n### Can I request a recruiter?\nYes. The candidate may request human assistance at any time.\n### Does passing the screening guarantee an interview?\nNo. The screening is preliminary. Final interview decisions are made by a human recruiter.\n### What salary will I receive?\nThe current screening knowledge base does not contain salary information. The assistant should not invent it.\n### Can I work part-time?\nThe role is full-time, so part-time availability does not satisfy the stated requirement.",
+    "category": "faq",
+    "source": "faq.md",
+    "version": "1.0",
+    "pii": false,
+    "chunk_index": 0
+  },
+  {
+    "record_id": "kb_candidate_003",
+    "title": "Junior Python/AI Engineer \u2014 Role Information",
+    "content": "# Junior Python/AI Engineer \u2014 Role Information\n## Role\nJunior Python/AI Engineer\n## Core responsibilities\n- Build and maintain Python-based AI applications.\n- Work with machine learning or AI workflows.\n- Integrate APIs and data sources.\n- Collaborate with engineers and recruiters during the hiring process.\n## Required skills\n- Python fundamentals.\n- Problem solving.\n- Ability to work full-time.\n- Bachelor's degree in a relevant field.\n## Preferred skills\n- Machine Learning / Deep Learning.\n- REST APIs.\n- SQL.\n- Git/GitHub.\n## Work arrangement\nFull-time.\n## Joining requirement\nCandidates should be available to join within 60 days.\n## Information not provided\nSalary, exact interview schedule, benefits, and final hiring decision criteria beyond the screening rules are not included in this document.",
+    "category": "role",
+    "source": "role_description.md",
+    "version": "1.0",
+    "pii": false,
+    "chunk_index": 0
+  },
+  {
+    "record_id": "kb_candidate_004",
+    "title": "Example Application Record",
+    "content": "# Example Application Record\nThis file is intentionally included to demonstrate PII handling during ingestion.\nCandidate name: Example Candidate\nEmail: [REDACTED_PII]\nPhone: [REDACTED_PII]\nApplication note: Python internship completed.\nThe production knowledge base should not expose this candidate's personal contact information.",
+    "category": "application_example",
+    "source": "source_with_pii_example.md",
+    "version": "1.0",
+    "pii": true,
+    "chunk_index": 0
+  }
+]
