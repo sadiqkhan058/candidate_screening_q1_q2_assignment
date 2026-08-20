@@ -1,0 +1,10 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Q4 Live Insights & Nudges</title>
+<style>body{font-family:Arial,sans-serif;max-width:1050px;margin:25px auto;padding:0 18px;background:#f7f7f7}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.card{background:#fff;border:1px solid #ddd;border-radius:12px;padding:16px}.wide{grid-column:1/-1}button{padding:10px 15px;cursor:pointer}.chunk,.event{padding:10px;margin:7px 0;border-radius:8px;background:#f3f3f3}.event{border-left:5px solid #333}.small{color:#666;font-size:13px}@media(max-width:700px){.grid{grid-template-columns:1fr}}</style></head><body>
+<h1>Q4 — Live Insights & Nudges</h1><p>Real-time replay of a call transcript. Each chunk is processed as it arrives; nudges are generated immediately.</p>
+<button onclick="start()">▶ Start live replay</button> <span id="status">Idle</span>
+<div class="grid"><div class="card wide"><h2>Streaming Transcript</h2><div id="chunks"></div></div><div class="card wide"><h2>Live Nudges</h2><div id="events"></div></div></div>
+<script>
+async function post(p){await fetch(p,{method:'POST'})} async function state(){return (await fetch('/api/state')).json()}
+function render(s){document.getElementById('status').textContent=s.started?'LIVE':'Complete';document.getElementById('chunks').innerHTML=s.chunks.map(c=>`<div class="chunk"><b>${c.speaker}</b>: ${c.text}</div>`).join('')||'<div class="small">Waiting for audio/transcript chunks...</div>';document.getElementById('events').innerHTML=s.events.map(e=>`<div class="event"><b>${e.signal}</b> (${e.confidence})<br>${e.nudge}<br><span class="small">Evidence: ${e.evidence}</span></div>`).join('')||'<div class="small">No nudges yet.</div>'}
+async function start(){await post('/api/start');render(await state());loop()} async function loop(){let s=await state();if(!s.started&&s.index===0)return;if(s.started){await post('/api/tick');s=await state();render(s);setTimeout(loop,200)}else render(s)} setInterval(async()=>render(await state()),1000);render({started:false,index:0,chunks:[],events:[]});
+</script></body></html>

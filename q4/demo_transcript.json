@@ -1,0 +1,9 @@
+[
+  {"delay": 1.0, "speaker": "customer", "text": "I also have a second vehicle that I need to insure."},
+  {"delay": 2.0, "speaker": "agent", "text": "We can look at the options for your main vehicle first."},
+  {"delay": 2.0, "speaker": "customer", "text": "This is ridiculous, I have already told you twice that I need help."},
+  {"delay": 2.0, "speaker": "agent", "text": "Let me check that for you."},
+  {"delay": 2.0, "speaker": "customer", "text": "I can't pay the payment this month and need some help."},
+  {"delay": 2.0, "speaker": "agent", "text": "I will review the available options."},
+  {"delay": 2.0, "speaker": "agent", "text": "Before we proceed, the required disclosure should be covered."}
+]
